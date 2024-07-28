@@ -1,5 +1,5 @@
 function verificarSesion(){
-    fetch('https://servicold.000webhostapp.com/back-end/verificar_sesion.php')
+    fetch('https://servicoldingenieria.com/back-end/verificar_sesion.php')
         .then(response => response.json())
         .then(data => {
             // Manejar la respuesta del servidor

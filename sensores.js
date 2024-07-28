@@ -1,26 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Realizar la solicitud GET al archivo PHP para obtener los sensores del usuario
-    fetch('https://servicold.000webhostapp.com/back-end/sensoresUsuario.php')
-        .then(response => response.json())
+    console.log('JavaScript cargado y DOM completamente construido'); // Log inicial
+
+    fetch('https://servicoldingenieria.com/back-end/sensoresUsuario.php')
+        .then(response => {
+            console.log('Estado de la respuesta:', response.status); // Log para el estado de la respuesta
+            if (!response.ok) {
+                throw new Error('Error en la respuesta de la solicitud fetch');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Manejar la respuesta del servidor
+            console.log('Respuesta del servidor:', data); // Log para la respuesta JSON
             if (data.error) {
                 console.error('Error:', data.error);
                 return;
             }
 
-            // Obtener el contenedor de la lista de sensores
             const sensorList = document.getElementById('sensorList');
 
-            // Iterar sobre la lista de sensores y mostrarlos como enlaces
             data.forEach(sensor => {
-                const sensorLink = document.createElement('a');
-                sensorLink.textContent = sensor.nombre;
-                sensorLink.href = `https://servicold.000webhostapp.com/${sensor.nombre}.html`; // Enlace a la página del sensor
-                sensorLink.classList.add('sensor-link'); // Agregar una clase para estilos opcionales
-                sensorList.appendChild(sensorLink);
-                sensorList.appendChild(document.createElement('br')); // Agregar un salto de línea
+                const sensorItem = document.createElement('li'); // Crear un elemento <li> para el sensor
+                const sensorLink = document.createElement('a'); // Opcional: crear un elemento <a> para el enlace
+                const url = `https://servicoldingenieria.com/${sensor.tabla}.html`;
+                console.log('Generated URL:', url); // Log para la URL generada
+                sensorLink.textContent = sensor.nombre; // Mostrar el nombre amigable
+                sensorLink.href = url; // Enlace a la página del sensor
+                sensorLink.classList.add('sensor-link');
+                sensorItem.appendChild(sensorLink); // Agregar el enlace al elemento <li>
+                sensorList.appendChild(sensorItem); // Agregar el elemento <li> al contenedor de la lista
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error en la solicitud fetch:', error); // Log para el error en fetch
+        });
 });

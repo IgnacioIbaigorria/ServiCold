@@ -19,10 +19,10 @@ if ($con) {
 
     if ($selectedDate) {
         // Modificar la consulta SQL para filtrar por fecha
-        $consulta = "SELECT nivel_combustible, fecha_actual FROM `FL902(2)` WHERE DATE(fecha_actual) = '$selectedDate' ORDER BY fecha_actual DESC";
+        $consulta = "SELECT Temperatura, fecha_actual FROM `ds18b20(1)` WHERE DATE(fecha_actual) = '$selectedDate' ORDER BY fecha_actual DESC";
     } else {
         // Consulta original sin filtro por fecha
-        $consulta = "SELECT nivel_combustible, fecha_actual FROM `FL902(2)` ORDER BY fecha_actual DESC";
+        $consulta = "SELECT Temperatura, fecha_actual FROM `ds18b20(1)` ORDER BY fecha_actual DESC";
     }
 
     // Ejecuta la consulta

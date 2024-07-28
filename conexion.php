@@ -1,10 +1,10 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 // Configuración de la base de datos
-$user = 'id22139974_servicold';
+$user = 'u336906360_servicoldWeb';
 $pass = 'Servicold1.';
 $server = 'localhost';
-$db = 'id22139974_servicold';
+$db = 'u336906360_servicold';
 
 // Establece la conexión a la base de datos
 $con = mysqli_connect($server, $user, $pass, $db);

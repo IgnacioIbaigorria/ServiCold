@@ -29,14 +29,14 @@ function sendEmailAlert($to, $subject, $message) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'ignacioibaigorria@gmail.com'; // Cambia esto por tu dirección de correo
-        $mail->Password = 'onajqhoqiwdegphd'; // Cambia esto por tu contraseña de correo
+        $mail->Username = 'servicoldweb@gmail.com'; // Cambia esto por tu dirección de correo
+        $mail->Password = 'kiittjdzxduzwyll'; // Cambia esto por tu contraseña de correo
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->isHTML(true); // Establece el formato del correo como HTML
 
         // Configura el remitente y el destinatario
-        $mail->setFrom('ignacioibaigorria@gmail.com', 'Ignacio'); // Cambia esto por tu dirección de correo y tu nombre
+        $mail->setFrom('servicoldweb@gmail.com', 'ServiCold'); // Cambia esto por tu dirección de correo y tu nombre
         $mail->addAddress($to); // Agrega el destinatario
 
         // Configura el asunto y el cuerpo del correo
