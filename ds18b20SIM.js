@@ -1,5 +1,5 @@
 // Variables para los datos de gráficos
-let fuelLevelData = [];
+let temperatureData = [];
 let labels = [];
 let sensorChart;
 
@@ -17,8 +17,8 @@ function initializeChart() {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Nivel de Combustible (%)',
-                data: fuelLevelData,
+                label: 'Temperatura (°C)',
+                data: temperatureData,
                 borderColor: 'rgba(255, 99, 132, 1)',
                 fill: false
             }]
@@ -37,9 +37,11 @@ function initializeChart() {
                     display: true,
                     title: {
                         display: true,
-                        text: 'Nivel de Combustible (%)'
+                        text: 'Temperatura (°C)'
                     },
-                    // El rango será actualizado dinámicamente
+                    // Define el rango del eje Y de 0 a 100%
+                    min: -50,
+                    max: 50
                 }
             },
             // Hacer que el gráfico sea responsivo
@@ -72,16 +74,16 @@ function filterDataByDate() {
 }
 
 // Variable para almacenar el umbral obtenido
-let combustibleThreshold;
+let temperatureThreshold;
 
 function getThreshold() {
     console.log("Se está ejecutando la función getThreshold()");
-    return fetch('https://servicoldingenieria.com/umbralFL.php', { cache: 'no-cache' })
+    return fetch('https://servicoldingenieria.com/umbralDSSIM.php', { cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
             if (data && typeof data.umbral !== 'undefined') {
-                combustibleThreshold = data.umbral;
-                console.log(`Umbral actualizado: ${combustibleThreshold}`);
+                temperatureThreshold = data.umbral;
+                console.log(`Umbral actualizado: ${temperatureThreshold}`);
             } else {
                 console.log('No se encontró el umbral en los datos');
             }
@@ -93,14 +95,13 @@ function getThreshold() {
 
 // Bandera para controlar si la alerta ya se ha emitido
 let alertEmitted = false;
-
-let combustibleObtenido;
+let temperaturaObtenida;
 
 // Función para verificar los datos del sensor de nivel de combustible
-function checkCombustibleData() {
-    console.log("Se está ejecutando la función checkCombustibleData()");
+function checkTemp() {
+    console.log("Se está ejecutando la función checkTemp()");
     // Realiza la solicitud HTTP GET para obtener los datos del sensor de nivel de combustible
-    fetch('https://servicoldingenieria.com/checkCombustible.php',  {cache: 'no-cache' })
+    fetch('https://servicoldingenieria.com/checkTempSIM.php',  {cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
             // Verifica si hay datos
@@ -108,10 +109,10 @@ function checkCombustibleData() {
                 // Muestra los resultados y verifica las lecturas bajas
                 data.forEach(item => {
                     // Verifica si el nivel de combustible está por debajo del umbral
-                    if (parseFloat(item.nivel_combustible) <= combustibleThreshold && !alertEmitted) {
+                    if (parseFloat(item.Temperatura) >= temperatureThreshold && !alertEmitted) {
                         // Muestra una alerta en la página
-                        alert(`¡Alerta! Nivel de combustible bajo: ${item.nivel_combustible}%`);
-                        combustibleObtenido = parseFloat(item.nivel_combustible);
+                        alert(`¡Alerta! Temperatura alta: ${item.Temperatura}°C`);
+                        temperaturaObtenida = parseFloat(item.Temperatura);
 
 
                         // Envía un correo electrónico de alerta
@@ -125,43 +126,49 @@ function checkCombustibleData() {
         })
         .catch(error => {
             // Maneja los errores
-            console.error('Error al obtener los datos del sensor de nivel de combustible:', error);
+            console.error('Error al obtener los datos del sensor de temperatura:', error);
         });
 }
 
 function sendEmailAlert() {
     console.log("Se llama la función sendEmailAlert()");
 
-    // Solicitar el correo electrónico del usuario
-    fetch('https://servicoldingenieria.com/back-end/emailUsuario.php')
+    // Solicitar los correos electrónicos de los usuarios que tienen acceso al sensor
+    fetch('https://servicoldingenieria.com/back-end/emailDSIM.php')
     .then(response => response.json())
     .then(data => {
-        if (data.email) {
-            console.log('Correo electrónico obtenido:', data.email);
+        if (data.length > 0) {
+            console.log('Correos electrónicos obtenidos:', data);
 
-            // Construye los datos del formulario codificados
-            const formData = new FormData();
-            formData.append('to', data.email);
-            formData.append('subject', 'Combustible bajo');
-            formData.append('message', `¡Alerta! Nivel de combustible bajo: ${combustibleObtenido}%`);
+            // Recorrer la lista de correos electrónicos y enviar la alerta a cada uno
+            data.forEach(email => {
+                console.log('Enviando alerta a:', email);
 
-            fetch('https://servicoldingenieria.com/envioAlerta.php', {
-                method: 'POST',
-                body: formData // Pasa los datos del formulario
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data); // Muestra la respuesta del servidor en la consola
-            })
-            .catch(error => {
-                console.error('Error al enviar la solicitud:', error);
+                // Construir los datos del formulario codificados
+                const formData = new FormData();
+                formData.append('to', email);
+                formData.append('subject', 'Temperatura alta');
+                formData.append('message', `¡Alerta! Temperatura alta: ${temperaturaObtenida}°C`);
+
+                // Enviar la solicitud para enviar la alerta por correo electrónico
+                fetch('https://servicoldingenieria.com/envioAlerta.php', {
+                    method: 'POST',
+                    body: formData // Pasa los datos del formulario
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Muestra la respuesta del servidor en la consola
+                })
+                .catch(error => {
+                    console.error('Error al enviar la solicitud:', error);
+                });
             });
         } else {
-            console.error('No se pudo obtener el correo electrónico del usuario');
+            console.error('No se encontraron correos electrónicos válidos');
         }
     })
     .catch(error => {
-        console.error('Error al obtener el correo electrónico:', error);
+        console.error('Error al obtener los correos electrónicos:', error);
     });
 }
 
@@ -179,7 +186,7 @@ function formatDate(dateString) {
 // Función para cargar los datos de la tabla y actualizar los gráficos
 function loadAllData(selectedDate) {
     // URL para la solicitud a tu script PHP
-    let url = `https://servicoldingenieria.com/FLGet.php?data_limit=${dataLimit}`;
+    let url = `https://servicoldingenieria.com/DSGET.php?data_limit=${dataLimit}`;
     // Agrega el parámetro `selected_date` a la URL si se proporciona una fecha seleccionada
     if (selectedDate) {
         url += `&selected_date=${selectedDate}`;
@@ -193,7 +200,7 @@ function loadAllData(selectedDate) {
             resultBody.innerHTML = '';
             
             labels = [];
-            fuelLevelData = [];
+            temperatureData = [];
 
             // Verifica si hay datos
             if (Array.isArray(data) && data.length > 0) {
@@ -208,35 +215,27 @@ function loadAllData(selectedDate) {
                     const row = document.createElement('tr');
                     // Muestra el nivel de combustible y la fecha de cada registro
                     row.innerHTML = `
-                        <td>${item.nivel_combustible}</td>
+                        <td>${item.Temperatura}</td>
                         <td>${formatDate(item.fecha_actual)}</td>`;
                     resultBody.appendChild(row);
 
                     // Actualiza las listas de datos para los gráficos
                     labels.push(formatDate(item.fecha_actual));
-                    // Convierte el nivel de combustible a un valor entre 0 y 100%
-                    const fuelPercentage = (item.nivel_combustible / 100) * 100;
-                    fuelLevelData.push(fuelPercentage);
+                    temperatureData.push(item.Temperatura);
                 });
 
                 // Limita las listas de datos según el dataLimit
                 if (dataLimit){
                     labels = (labels.slice(-dataLimit)).reverse();
-                    fuelLevelData = (fuelLevelData.slice(-dataLimit)).reverse();
+                    temperatureData = (temperatureData.slice(-dataLimit)).reverse();
                 } else {
                     labels = labels.reverse();
-                    fuelLevelData = fuelLevelData.reverse();
+                    temperatureData = temperatureData.reverse();
                 }
 
-                // Calcular el valor mínimo y máximo de los datos de nivel de combustible
-                const minFuelLevel = Math.min(...fuelLevelData);
-                const maxFuelLevel = Math.max(...fuelLevelData);
-
-                // Actualiza el gráfico con los nuevos límites del eje Y
-                sensorChart.options.scales.y.min = minFuelLevel;
-                sensorChart.options.scales.y.max = maxFuelLevel;
+                // Actualiza el gráfico
                 sensorChart.data.labels = labels;
-                sensorChart.data.datasets[0].data = fuelLevelData;
+                sensorChart.data.datasets[0].data = temperatureData;
                 sensorChart.update();
             } else {
                 // Si no hay resultados, muestra un mensaje
@@ -286,14 +285,13 @@ function handleDataLimitChange() {
     // Llama a `loadAllData`
     loadAllData(selectedDate);
 }
-
 // Agrega la asignación del evento change al menú desplegable dataLimit
 document.getElementById('dataLimit').addEventListener('change', handleDataLimitChange);
 
 window.onload = function() {
     verificarSesion();
     getThreshold();
-    checkCombustibleData();
+    checkTemp();
     initializeChart();
     
     // Establecer el valor predeterminado del campo de fecha con la fecha actual

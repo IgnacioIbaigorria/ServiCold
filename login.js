@@ -13,7 +13,7 @@ loginForm.addEventListener('submit', function(event) {
     formData.append('password', password);
 
     // Realizar la solicitud POST al archivo PHP para el inicio de sesión
-    fetch('https://servicold.000webhostapp.com/back-end/login.php', {
+    fetch('https://servicoldingenieria.com/back-end/login.php', {
         method: 'POST',
         body: formData
     })
@@ -22,7 +22,7 @@ loginForm.addEventListener('submit', function(event) {
         // Manejar la respuesta del servidor
         if (data.mensaje) {
             // Inicio de sesión exitoso, redirigir al usuario a otra página
-            window.location.href = 'https://servicold.000webhostapp.com/index.html';
+            window.location.href = 'https://servicoldingenieria.com/index.php';
         } else {
             // Inicio de sesión fallido, mostrar mensaje de error
             alert(data.error || 'Inicio de sesión fallido. Por favor, verifica tus credenciales.');

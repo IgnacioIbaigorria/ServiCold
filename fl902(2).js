@@ -39,7 +39,6 @@ function initializeChart() {
                         display: true,
                         text: 'Nivel de Combustible (%)'
                     },
-                    // El rango será actualizado dinámicamente
                 }
             },
             // Hacer que el gráfico sea responsivo
@@ -76,7 +75,7 @@ let combustibleThreshold;
 
 function getThreshold() {
     console.log("Se está ejecutando la función getThreshold()");
-    return fetch('https://servicoldingenieria.com/umbralFL.php', { cache: 'no-cache' })
+    return fetch('https://servicoldingenieria.com/umbralFL(2).php', { cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
             if (data && typeof data.umbral !== 'undefined') {
@@ -91,16 +90,16 @@ function getThreshold() {
         });
 }
 
+
 // Bandera para controlar si la alerta ya se ha emitido
 let alertEmitted = false;
-
 let combustibleObtenido;
 
 // Función para verificar los datos del sensor de nivel de combustible
 function checkCombustibleData() {
     console.log("Se está ejecutando la función checkCombustibleData()");
     // Realiza la solicitud HTTP GET para obtener los datos del sensor de nivel de combustible
-    fetch('https://servicoldingenieria.com/checkCombustible.php',  {cache: 'no-cache' })
+    fetch('https://servicoldingenieria.com/checkCombustible(2).php',  {cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
             // Verifica si hay datos
@@ -132,36 +131,42 @@ function checkCombustibleData() {
 function sendEmailAlert() {
     console.log("Se llama la función sendEmailAlert()");
 
-    // Solicitar el correo electrónico del usuario
-    fetch('https://servicoldingenieria.com/back-end/emailUsuario.php')
+    // Solicitar los correos electrónicos de los usuarios que tienen acceso al sensor
+    fetch('https://servicoldingenieria.com/back-end/emailFL(2).php')
     .then(response => response.json())
     .then(data => {
-        if (data.email) {
-            console.log('Correo electrónico obtenido:', data.email);
+        if (data.length > 0) {
+            console.log('Correos electrónicos obtenidos:', data);
 
-            // Construye los datos del formulario codificados
-            const formData = new FormData();
-            formData.append('to', data.email);
-            formData.append('subject', 'Combustible bajo');
-            formData.append('message', `¡Alerta! Nivel de combustible bajo: ${combustibleObtenido}%`);
+            // Recorrer la lista de correos electrónicos y enviar la alerta a cada uno
+            data.forEach(email => {
+                console.log('Enviando alerta a:', email);
 
-            fetch('https://servicoldingenieria.com/envioAlerta.php', {
-                method: 'POST',
-                body: formData // Pasa los datos del formulario
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data); // Muestra la respuesta del servidor en la consola
-            })
-            .catch(error => {
-                console.error('Error al enviar la solicitud:', error);
+                // Construir los datos del formulario codificados
+                const formData = new FormData();
+                formData.append('to', email);
+                formData.append('subject', 'Combustible bajo');
+                formData.append('message', `¡Alerta! Nivel de combustible bajo: ${combustibleObtenido}%`);
+
+                // Enviar la solicitud para enviar la alerta por correo electrónico
+                fetch('https://servicoldingenieria.com/envioAlerta.php', {
+                    method: 'POST',
+                    body: formData // Pasa los datos del formulario
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data); // Muestra la respuesta del servidor en la consola
+                })
+                .catch(error => {
+                    console.error('Error al enviar la solicitud:', error);
+                });
             });
         } else {
-            console.error('No se pudo obtener el correo electrónico del usuario');
+            console.error('No se encontraron correos electrónicos válidos');
         }
     })
     .catch(error => {
-        console.error('Error al obtener el correo electrónico:', error);
+        console.error('Error al obtener los correos electrónicos:', error);
     });
 }
 
@@ -179,7 +184,7 @@ function formatDate(dateString) {
 // Función para cargar los datos de la tabla y actualizar los gráficos
 function loadAllData(selectedDate) {
     // URL para la solicitud a tu script PHP
-    let url = `https://servicoldingenieria.com/FLGet.php?data_limit=${dataLimit}`;
+    let url = `https://servicoldingenieria.com/FLGET2.php?data_limit=${dataLimit}`;
     // Agrega el parámetro `selected_date` a la URL si se proporciona una fecha seleccionada
     if (selectedDate) {
         url += `&selected_date=${selectedDate}`;
@@ -295,15 +300,16 @@ window.onload = function() {
     getThreshold();
     checkCombustibleData();
     initializeChart();
-    
-    // Establecer el valor predeterminado del campo de fecha con la fecha actual
+
     document.getElementById('selectedDate').value = selectedDate;
 
-    loadAllData(selectedDate);  // Verifica la sesión y carga los datos
+    loadAllData(selectedDate);
+
+
 };
 
+    setInterval(() => {
+        loadAllData(selectedDate);
+    }, 5000);
 
-// Utiliza setInterval para verificar si hay nuevos datos cada 5 segundos
-setInterval(() => {
-    loadAllData(selectedDate);
-}, 5000);
+

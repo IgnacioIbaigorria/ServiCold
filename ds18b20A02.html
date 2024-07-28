@@ -4,14 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
-        <!-- Enlace al favicon -->
+    <title>Sensor Temperatura</title>
     <link rel="icon" href="https://servicoldingenieria.com/src/favicon.png" type="image/x-icon">
-    <!-- Enlace a Bootstrap 5 desde tu carpeta npm -->
+    <!-- Enlace a Bootstrap 5 -->
     <link rel="stylesheet" href="https://servicoldingenieria.com/node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <!-- Enlace a tu archivo de estilos CSS -->
+    <!-- Enlace a tu archivo de estilos CSS -->
     <link rel="stylesheet" type="text/css" href="https://servicoldingenieria.com/css/styles.css">
+    <!-- Enlace a Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Agregar jQuery para simplificar la manipulación del DOM -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Enlace a JavaScript de Bootstrap 5 -->
+    <script src="https://servicoldingenieria.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        .form-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-inline label,
+        .form-inline p,
+        .form-inline input,
+        .form-inline button {
+            margin: 0;
+        }
+        .btn{
+            font-size: 16px;
+        }
+
         html, body {
             height: 100%;
             margin: 0;
@@ -34,37 +54,25 @@
             color: #bcd3de;
             background: linear-gradient(to right, #172742, #202733);
         }
+        
         p {
             font-size: 1.4rem;
             color: #bcd3de;
-            margin-bottom: 0;
         }
         
         h1 {
-            margin-top: 30px;
             font-size: 2.5rem; /* Ajustar tamaño para pantallas más pequeñas */
             font-weight: 600;
             color: #74b5f9;
+
         }
         
         h2, h3, h4, h5, h6 {
             font-size: 1.5rem; /* Ajustar tamaño para pantallas más pequeñas */
             font-weight: 500;
             color: #74b5f9;
-        }
-        
-        input {
-            border-radius: 5px;
-            width: 250px;
-            height: 35px;
-            padding: 0 10px;
-            margin-bottom: 15px;
-        }
 
-        label {
-            font-size: 1.4rem;
         }
-
         
         .logo {
             margin-left: 100px; /* Ajustar el margen */
@@ -73,40 +81,20 @@
             border: none;
         }
         
-        .section {
-            padding: 50px 20px; /* Reducir padding para dispositivos móviles */
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        /* Ajustar el margen superior de la primera sección para compensar el header fijo */
-        #pageTitle {
-            margin-top: 50px; /* Ajusta este valor según la altura de tu header */
-        }
-
-
-        
-
         .btn-primary {
             background-color: #2b78c5;
             border-color: #2b78c5;
             color: #e3f2fd;
             font-size: 1.25rem;
-            padding: 5px 10px;
             margin-bottom: 15px;
-            border-radius: 10px;
         }
         
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #004085;
         }
-        
 
-        /* Header fijo */
         header {
-            position: fixed;
             width: 100%;
             top: 0;
             left: 0;
@@ -117,7 +105,6 @@
             background-color: #202733;
             padding: 5px 10px;
             height: 60px; /* Ajustar la altura */
-            margin-bottom: 20px;
         }
         
         header img {
@@ -184,7 +171,6 @@
                 margin-top: 5px;
                 font-size: 0.75rem;
             }
-
         }
         
         @media (max-width: 576px) {
@@ -220,28 +206,83 @@
     </style>
 </head>
 <body>
-    <header class="p-4">
-        <img src="https://servicoldingenieria.com/imagenes/logo-fondo.png" alt="ServiCold SAS" class="img-fluid logo">
-        <div class="nav-buttons">
-            <a href="https://servicoldingenieria.com/home.html">HOME</a>
-            <a href="https://servicoldingenieria.com/home.html#contacto">CONTACTO</a>
-            <a href="https://servicoldingenieria.com/login.html" class="active">INICIAR SESION</a>
+        <header class="p-4">
+            <img src="imagenes/logo-fondo.png" alt="ServiCold SAS" class="img-fluid logo">
+            <div class="nav-buttons">
+                <a href="home.html">HOME</a>
+                <a href="index.php">GESTIÓN</a>
+                <a href="https://servicoldingenieria.com/back-end/logout.php">SALIR</a>
+            </div>
+        </header>
+    <!-- Sección principal -->
+    <div class="container principal">
+        <h1 id="pageTitle">DS18B20 - A02</h1>
+        <div class="row align-items-center mb-4">
+            <div class="col-md-2">
+                <label for="selectedDate" class="text-center">Selecciona la fecha:</label>
+                <input type="date" id="selectedDate" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <label for="dataLimit" class="form-label text-center">Cantidad de lecturas:</label>
+                <select id="dataLimit" name="dataLimit" onchange="handleDataLimitChange()" class="form-select">
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="umbralValue" class="text-center">Temperatura de alerta (°C):</label>
+                <p id="umbralValue" class="form-control-plaintext text-center">Cargando...</p>
+            </div>
+            <div class="col-md-4">
+                <form id="updateUmbralForm" action="actualizar_umbralDSA02.php" method="POST" class="form-inline">
+                    <label for="newUmbral">Actualizar alerta:</label>
+                    <input type="number" id="newUmbral" name="nuevoUmbral" step="0.01" class="form-control mx-2 text-center">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </form>
+            </div>
         </div>
-    </header>
-    <div class="login-container container"><br><br>
-        <h1 id="pageTitle">Inicio de Sesión</h1>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email"><p>Correo electrónico:</p></label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password"><p>Contraseña:</p></label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn-primary">Ingresar</button>
-        </form>
+        <!-- Contenedor centrado para el gráfico -->
+        <div class="col-md-12" style="display: flex; justify-content: center; margin-top: 25px; width: 100%;">
+            <canvas id="sensorChart" class="grafico" style="width: 100%; max-width: 100%; height: 550px;"></canvas>
+        </div>
+        <!-- Tabla para mostrar los resultados -->
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <table id="resultTable" class="table mt-4 col-md-12" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Temperatura (°C)</th>
+                        <th style="width: 50%;">Hora</th>
+                    </tr>
+                </thead>
+                <tbody id="resultBody">
+                    <!-- Los resultados se agregarán aquí -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    <script src="https://servicoldingenieria.com/login.js"></script> <!-- Vincula al archivo JavaScript -->
+    <script src="https://servicoldingenieria.com/ds18b20A02.js"></script>
+    <script>
+        // Función para obtener y mostrar el valor del umbral
+        $(document).ready(function() {
+            $.ajax({
+                url: 'https://servicoldingenieria.com/umbralDSA02.php', // Ruta al archivo PHP que consulta el umbral
+                dataType: 'json',
+                success: function(response) {
+                    if (response.umbral !== undefined) {
+                        $('#umbralValue').text(response.umbral);
+                    } else {
+                        $('#umbralValue').text('No se encontró el umbral');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al obtener el umbral:', error);
+                    $('#umbralValue').text('Error al cargar el umbral');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -7,14 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Validar la contraseña
+    $response = ['valid' => false];
     if ($password === $admin_password) {
-        // Redirigir a la página de administrador
-        header('Location: aDmINnnisTrADor.html');
-        exit;
-    } else {
-        echo 'Contraseña incorrecta. <a href="index.html">Volver</a>';
+        $response['valid'] = true;
     }
+    echo json_encode($response);
 } else {
-    echo 'Método de solicitud no válido.';
+    echo json_encode(['valid' => false, 'message' => 'Método de solicitud no válido.']);
 }
 ?>

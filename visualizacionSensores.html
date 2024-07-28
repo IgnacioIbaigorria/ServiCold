@@ -5,33 +5,183 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualización</title>
-    <link rel="icon" href="https://servicold.000webhostapp.com/src/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://servicold.000webhostapp.com/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://servicold.000webhostapp.com/css/styles.css">
+    <link rel="icon" href="https://servicoldingenieria.com/src/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://servicoldingenieria.com/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://servicoldingenieria.com/css/styles.css">
+    <style>
+        .form-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-inline label,
+        .form-inline p,
+        .form-inline input,
+        .form-inline button {
+            margin: 0;
+        }
+        .btn{
+            font-size: 16px;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #172742, #202733);
+            font-size: 16px; /* Asegúrate de tener un tamaño base razonable */
+        }
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #bcd3de;
+            margin: 0;
+            padding-bottom: 50px;
+            padding-top: 0;
+            background: linear-gradient(to right, #172742, #202733);
+        }
+        header, footer {
+            color: #bcd3de;
+            background: linear-gradient(to right, #172742, #202733);
+        }
+        p {
+            font-size: 1.4rem;
+            color: #bcd3de;
+        }
+        h1 {
+            font-size: 2.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 600;
+            color: #74b5f9;
+        }
+        
+        h2 {
+            font-size: 2rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 500;
+            color: #74b5f9;
+
+        }
+        
+        h3, h4, h5, h6 {
+            font-size: 1.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 500;
+            color: #74b5f9;
+        }
+        .logo {
+            margin-left: 100px; /* Ajustar el margen */
+            height: 40px;
+            margin-top: 10px;
+            border: none;
+        }
+        .btn-primary {
+            background-color: #2b78c5;
+            border-color: #2b78c5;
+            color: #e3f2fd;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        header {
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #202733;
+            padding: 5px 10px;
+            height: 60px; /* Ajustar la altura */
+        }
+        header img {
+            height: 30px; /* Reducir el tamaño de la imagen */
+            border: none;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-buttons a {
+            color: #bcd3de;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-buttons a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .nav-buttons .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+        /* Media queries para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .col-md-8, .col-md-4, .col-md-9, .col-md-3, .col-md-6 {
+                width: 100%;
+            }
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+            header{
+                width: 100%;
+                height: 30px;
+            }
+            header img {
+                margin-left: 5px;
+                border: none;
+            }
+            .logo {
+                margin-left: 0; /* Ajustar el margen */
+                height: 30px;
+                margin-top: 5px;
+                margin-right: 5px;
+                border: none;
+            }
+            .nav-buttons {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                height: 10px;
+                width: 5px;
+                margin-top: 5px;
+                font-size: 0.75rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .section {
+                padding: 30px 10px;
+            }
+            header{
+                width: 100%;
+                height: auto;
+            }
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2, h3, h4, h5, h6 {
+                font-size: 1.25rem;
+            }
+            .btn-primary {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container-fluid text-center">
-            <nav class="navbar navbar-expand-md navbar-light justify-content-center">
-                <div class="navbar-brand">
-                    <a href="index.html">
-                        <img src="https://servicold.000webhostapp.com/src/logo-servicold.png" alt="Logo de ServiCold" class="logo" style="height: 60px;">
-                    </a>
-                </div>
-            </nav>
-            <nav class="navbar navbar-expand-md navbar-light justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="/back-end/logout.php" class="nav-link" style="font-size: 14px;">Cerrar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="cambiarPassword.html" class="nav-link" style="font-size: 14px;">Cambiar contraseña</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="Manual de usuario.pdf" class="nav-link" style="font-size: 14px;">Ayuda</a>
-                    </li>
-                </ul>
-            </nav>
+    <header class="p-4">
+        <img src="imagenes/logo-fondo.png" alt="ServiCold SAS" class="img-fluid logo">
+        <div class="nav-buttons">
+            <a href="home.html">HOME</a>
+            <a href="index.php">GESTIÓN</a>
+            <a href="https://servicoldingenieria.com/back-end/logout.php">SALIR</a>
         </div>
     </header>
     
@@ -55,12 +205,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="passwordModalLabel">Ingrese la contraseña</h5>
+                    <h2 class="modal-title" id="passwordModalLabel">Ingrese la contraseña</h2>
                 </div>
                 <div class="modal-body">
                     <form id="passwordForm">
                         <div class="mb-3">
-                            <label for="passwordInput" class="form-label">Contraseña</label>
+                            <label for="passwordInput" class="form-label"><h3>Contraseña:</h3></label>
                             <input type="password" class="form-control" id="passwordInput" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Ingresar</button>
@@ -93,32 +243,47 @@
         </div>
     </div>
 
-    <script src="https://servicold.000webhostapp.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://servicoldingenieria.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var passwordModalElement = document.getElementById('passwordModal');
             var passwordModal = new bootstrap.Modal(passwordModalElement);
             passwordModal.show();
-        
+
             var sensorModalElement = document.getElementById('sensorModal');
             var sensorModal = new bootstrap.Modal(sensorModalElement);
-        
+
             var passwordForm = document.getElementById('passwordForm');
             passwordForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 var contraseña = document.getElementById('passwordInput').value;
-                if (contraseña === 'admin') {
-                    passwordModal.hide();
-                    loadUserSensorData();
-                } else {
-                    alert('Contraseña incorrecta. Inténtelo de nuevo.');
-                    document.getElementById('passwordInput').value = '';
-                }
+
+                // Llama a una API para validar la contraseña en lugar de validar directamente en el frontend
+                fetch('https://servicoldingenieria.com/back-end/validarAdmin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: contraseña })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        loadUserSensorData();
+                        passwordModal.hide();
+                    } else {
+                        alert('Contraseña incorrecta. Inténtelo de nuevo.');
+                        document.getElementById('passwordInput').value = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al validar la contraseña:', error);
+                });
             });
-        
+
             function loadUserSensorData() {
-                fetch('https://servicold.000webhostapp.com/GetUserSensor.php')
+                fetch('https://servicoldingenieria.com/GetUserSensor.php')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la solicitud');
@@ -137,20 +302,18 @@
                         editButton.className = 'btn btn-primary btn-sm';
                         editButton.textContent = 'Editar';
                         editButton.addEventListener('click', () => {
-                            // Aquí puedes acceder a los IDs del usuario y del sensor
                             const usuarioId = item.usuario_id;
                             document.getElementById('usuarioId').value = usuarioId;
                             if (item.sensores) {
-                                const sensorIds = item.sensores.split(',').map(sensor => sensor.trim());
-                                loadSensorOptions(sensorIds); // Puedes pasar los IDs de los sensores como argumento
+                                loadSensorOptions(item.sensores.split(',').map(sensor => sensor.trim()));
                             }
                             sensorModal.show();
                         });
-            
+
                         userCell.textContent = item.usuario;
                         sensorsCell.textContent = item.sensores || 'Ningún sensor asignado';
                         actionsCell.appendChild(editButton);
-            
+
                         row.appendChild(userCell);
                         row.appendChild(sensorsCell);
                         row.appendChild(actionsCell);
@@ -161,9 +324,9 @@
                     console.error('Error al consumir la API:', error);
                 });
             }
-            
-            function loadSensorOptions(usuarioId) {
-            fetch('https://servicold.000webhostapp.com/GetAllSensors.php') // Asumiendo que tienes una API que devuelve todos los sensores
+
+            function loadSensorOptions(selectedSensors = []) {
+                fetch('https://servicoldingenieria.com/GetAllSensors.php')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la solicitud');
@@ -177,30 +340,29 @@
                         const option = document.createElement('option');
                         option.value = sensor.id;
                         option.textContent = sensor.nombre;
+                        if (selectedSensors.includes(sensor.nombre)) {
+                            option.selected = true;
+                        }
                         sensorInput.appendChild(option);
                     });
                 })
                 .catch(error => {
                     console.error('Error al obtener los sensores:', error);
                 });
-        }
+            }
 
-
-        
-        
             var sensorForm = document.getElementById('sensorForm');
             sensorForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const usuarioId = parseInt(document.getElementById('usuarioId').value);
                 const sensorId = parseInt(document.getElementById('sensorInput').value);
-        
-                // Verificar si usuarioId y sensorId son números válidos
+
                 if (!isNaN(usuarioId) && !isNaN(sensorId)) {
                     const formData = new FormData();
                     formData.append('usuario_id', usuarioId);
                     formData.append('sensor_id', sensorId);
-        
-                    fetch('https://servicold.000webhostapp.com/AddSensor.php', {
+
+                    fetch('https://servicoldingenieria.com/AddSensor.php', {
                         method: 'POST',
                         body: formData
                     })
@@ -213,7 +375,7 @@
                     .then(data => {
                         console.log(data);
                         sensorModal.hide();
-                        loadUserSensorData(); // Recargar datos después de agregar el sensor
+                        loadUserSensorData();
                     })
                     .catch(error => {
                         console.error('Error al agregar el sensor:', error);
@@ -222,20 +384,19 @@
                     console.error('Usuario ID o Sensor ID no válido');
                 }
             });
-        
+
             var removeSensorButton = document.getElementById('removeSensorButton');
             removeSensorButton.addEventListener('click', function(event) {
                 event.preventDefault();
                 const usuarioId = parseInt(document.getElementById('usuarioId').value);
                 const sensorId = parseInt(document.getElementById('sensorInput').value);
-        
-                // Verificar si usuarioId y sensorId son números válidos
+
                 if (!isNaN(usuarioId) && !isNaN(sensorId)) {
                     const formData = new FormData();
                     formData.append('usuario_id', usuarioId);
                     formData.append('sensor_id', sensorId);
-        
-                    fetch('https://servicold.000webhostapp.com/RemoveSensor.php', {
+
+                    fetch('https://servicoldingenieria.com/RemoveSensor.php', {
                         method: 'POST',
                         body: formData
                     })
@@ -248,7 +409,7 @@
                     .then(data => {
                         console.log(data);
                         sensorModal.hide();
-                        loadUserSensorData(); // Recargar datos después de eliminar el sensor
+                        loadUserSensorData();
                     })
                     .catch(error => {
                         console.error('Error al eliminar el sensor:', error);

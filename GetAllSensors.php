@@ -6,7 +6,7 @@ include 'conexion.php';
 $response = [];
 
 if ($con) {
-    $consulta = "SELECT id, nombre FROM sensores";
+    $consulta = "SELECT id, nombre FROM sensores ORDER BY nombre";
     $resultado = mysqli_query($con, $consulta);
 
     if ($resultado) {

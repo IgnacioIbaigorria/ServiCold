@@ -2,7 +2,7 @@
 include 'conexion.php';
 
 if ($con) {
-    $sql = "SELECT id, nombre FROM sensores";
+    $sql = "SELECT id, nombre FROM sensores ORDER BY nombre";
     $result = mysqli_query($con, $sql);
     $sensores = [];
 
