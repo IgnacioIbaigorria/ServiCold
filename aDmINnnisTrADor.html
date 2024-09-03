@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -533,3 +534,540 @@
     <script src="https://servicoldingenieria.com/verificarSesion.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiCold</title>
+    <!-- Enlace al favicon -->
+    <link rel="icon" href="https://servicoldingenieria.com/src/favicon.png" type="image/x-icon">
+    <!-- Enlace a Bootstrap 5 -->
+    <link rel="stylesheet" href="https://servicoldingenieria.com/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Enlace a tu archivo de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="https://servicoldingenieria.com/css/styles.css">
+    <style>
+        .form-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-inline label,
+        .form-inline p,
+        .form-inline input,
+        .form-inline button {
+            margin: 0;
+        }
+        .btn{
+            font-size: 16px;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #172742, #202733);
+            font-size: 16px; /* Asegúrate de tener un tamaño base razonable */
+        }
+                
+
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #bcd3de;
+            margin: 0;
+            padding-bottom: 50px;
+            padding-top: 0;
+            background: linear-gradient(to right, #172742, #202733);
+        }
+        
+        header, footer {
+            color: #bcd3de;
+            background: linear-gradient(to right, #172742, #202733);
+        }
+        
+        p {
+            font-size: 1.4rem;
+            color: #bcd3de;
+        }
+        
+        h1 {
+            font-size: 2.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 600;
+            color: #74b5f9;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight : 500;
+            color: #74b5f9;
+            margin-top: 40px;
+        }
+        
+        h3, h4, h5, h6 {
+            font-size: 1.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 500;
+            color: #74b5f9;
+        }
+        
+        .lista {
+            align-items: flex-start;
+        }
+        
+        .item-lista {
+            margin-bottom:10px;
+            margin-top:0;
+        }
+        
+        .logo {
+            margin-left: 100px; /* Ajustar el margen */
+            height: 40px;
+            margin-top: 10px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: #2b78c5;
+            border-color: #2b78c5;
+            color: #e3f2fd;
+            font-size: 1.25rem;
+            margin-left: 10px;
+            border-radius: 10px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        header {
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #202733;
+            padding: 5px 10px;
+            height: 60px; /* Ajustar la altura */
+        }
+        
+        header img {
+            height: 30px; /* Reducir el tamaño de la imagen */
+            border: none;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-buttons a {
+            color: #bcd3de;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-buttons a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        .nav-buttons .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        /* Media queries para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .col-md-8, .col-md-4, .col-md-9, .col-md-3, .col-md-6 {
+                width: 100%;
+            }
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+            header{
+            width: 100%;
+            height: 30px;
+            }
+            
+            header img {
+            margin-left: 5px;
+            border: none;
+            }
+
+            .logo {
+            margin-left: 0; /* Ajustar el margen */
+            height: 30px;
+            margin-top: 5px;
+            margin-right: 5px;
+            border: none;
+            }
+                
+            .nav-buttons {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                height: 10px;
+                width: 5px;
+                margin-top: 5px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 30px 10px;
+            }
+            
+            header{
+            width: 100%;
+            height: auto;
+            }
+            
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+
+        
+            h1 {
+                font-size: 2rem;
+            }
+        
+            h2, h3, h4, h5, h6 {
+                font-size: 1.25rem;
+            }
+        
+            .btn-primary {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header class="p-4">
+        <img src="imagenes/logo-fondo.png" alt="ServiCold SAS" class="img-fluid logo">
+        <div class="nav-buttons">
+            <a href="home.html">HOME</a>
+            <a href="index.php">GESTIÓN</a>
+            <a href="https://servicoldingenieria.com/back-end/logout.php">SALIR</a>
+        </div>
+    </header>
+
+    <div class="container"><br><br>
+        <h1>Opciones de administrador</h1><br>
+        <ul class="lista">
+            <li class="item-lista">
+                <button onclick="mostrarFormularioAgregarUsuario()" class="btn btn-primary">Agregar usuarios</button>
+            </li>
+            <li class="item-lista">
+                <button onclick="mostrarFormularioAgregarSensor()" class="btn btn-primary">Agregar sensores</button>
+            </li>
+            <li class="item-lista">
+                <a href="visualizacionSensores.html" class="btn btn-primary">Visualización de sensores</a>
+            </li>
+        </ul>
+
+        <div id="formularioAgregarUsuario" style="display:none;">
+            <h2>Agregar Usuario</h2>
+            <form action="https://servicoldingenieria.com/registrarUsuario.php" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="usuarioNombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="password_hash" name="password_hash" required>
+                </div>
+                <button type="submit" class="btn btn-success">Registrar</button>
+            </form>
+        </div>
+        
+                <div id="formularioAgregarSensor" style="display:none;">
+            <h2>Agregar Sensor</h2>
+            <form action="https://servicoldingenieria.com/registrarSensor.php" method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="sensorNombre" name="nombre" required>
+                </div>
+                <button type="submit" class="btn btn-success">Registrar</button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h2>Usuarios</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="usuariosTable">
+                    <!-- Aquí se agregarán los usuarios mediante JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>Sensores</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="sensoresTable">
+                    <!-- Aquí se agregarán los usuarios mediante JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    
+    <div id="passwordModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Ingrese la contraseña</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label"><h3>Contraseña:</h3></label>
+                            <input type="password" class="form-control" id="passwordInput" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Usuario -->
+    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarUsuario" action="https://servicoldingenieria.com/editarUsuario.php" method="post">
+                        <input type="hidden" id="editUserId" name="user_id">
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="editName" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Editar Sensor -->
+    <div class="modal fade" id="editarSensorModal" tabindex="-1" aria-labelledby="editarSensorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarSensorModalLabel">Editar Sensor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditarSensor" action="https://servicoldingenieria.com/editarSensor.php" method="post">
+                        <input type="hidden" id="editSensorId" name="sensor_id">
+                        <div class="mb-3">
+                            <label for="editSensorName" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="editSensorName" name="nombre" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarFormularioAgregarUsuario() {
+            var formulario = document.getElementById('formularioAgregarUsuario');
+            if (formulario.style.display === 'none') {
+                formulario.style.display = 'block';
+            } else {
+                formulario.style.display = 'none';
+            }
+        }
+        
+        function mostrarFormularioAgregarSensor() {
+            var formulario = document.getElementById('formularioAgregarSensor');
+            if (formulario.style.display === 'none') {
+                formulario.style.display = 'block';
+            } else {
+                formulario.style.display = 'none';
+            }
+        }
+
+        function cargarUsuarios() {
+            fetch('https://servicoldingenieria.com/listarUsuarios.php')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Verifica la estructura de los datos recibidos
+                const usuariosTable = document.getElementById('usuariosTable');
+                usuariosTable.innerHTML = '';
+                data.forEach(usuario => {
+                    usuariosTable.innerHTML += `
+                        <tr>
+                            <td>${usuario.id}</td>
+                            <td>${usuario.nombre}</td>
+                            <td>${usuario.email}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="mostrarFormularioEditarUsuario('${usuario.id}', '${usuario.nombre}', '${usuario.email}')">Modificar</button>
+                                <button class="btn btn-danger" onclick="eliminarUsuario('${usuario.nombre}')">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+        }
+        
+        function cargarSensores() {
+            fetch('https://servicoldingenieria.com/listarSensores.php')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Verifica la estructura de los datos recibidos
+                    const sensoresTable = document.getElementById('sensoresTable');
+                    sensoresTable.innerHTML = '';
+                    data.forEach(sensor => {
+                        sensoresTable.innerHTML += `
+                            <tr>
+                                <td>${sensor.id}</td>
+                                <td>${sensor.nombre}</td>
+                                <td>
+                                    <button class="btn btn-warning" onclick="mostrarFormularioEditarSensor('${sensor.id}', '${sensor.nombre}')">Modificar</button>
+                                    <button class="btn btn-danger" onclick="eliminarSensor('${sensor.nombre}')">Eliminar</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+
+        function mostrarFormularioEditarSensor(id, nombre) {
+            document.getElementById('editSensorId').value = id;
+            document.getElementById('editSensorName').value = nombre;
+            new bootstrap.Modal(document.getElementById('editarSensorModal')).show();
+        }
+
+
+
+        function mostrarFormularioEditarUsuario(id, nombre, email) {
+            document.getElementById('editUserId').value = id;
+            document.getElementById('editName').value = nombre;
+            document.getElementById('editEmail').value = email;
+            new bootstrap.Modal(document.getElementById('editarUsuarioModal')).show();
+        }
+        
+        function eliminarUsuario(nombre) {
+            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                const formData = new FormData();
+                formData.append('nombre', nombre);
+        
+                fetch('https://servicoldingenieria.com/eliminarUsuario.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    cargarUsuarios();
+                })
+                .catch(error => console.error('Error al eliminar usuario:', error));
+            }
+        }
+        
+        function eliminarSensor(nombre) {
+            if (confirm('¿Estás seguro de que deseas eliminar este sensor?')) {
+                const formData = new FormData();
+                formData.append('nombre', nombre);
+        
+                fetch('https://servicoldingenieria.com/eliminarSensor.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    cargarSensores();
+                })
+                .catch(error => console.error('Error al eliminar el sensor:', error));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var passwordModal = new bootstrap.Modal(document.getElementById('passwordModal'));
+            passwordModal.show();
+        
+            var passwordForm = document.getElementById('passwordForm');
+            passwordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                var contraseña = document.getElementById('passwordInput').value;
+        
+                // Llama a una API para validar la contraseña en lugar de validar directamente en el frontend
+                fetch('https://servicoldingenieria.com/back-end/validarAdmin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: contraseña })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        cargarUsuarios();
+                        cargarSensores();
+                        passwordModal.hide();
+                    } else {
+                        alert('Contraseña incorrecta. Inténtelo de nuevo.');
+                        document.getElementById('passwordInput').value = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al validar la contraseña:', error);
+                });
+            });
+        
+            document.getElementById('passwordModal').addEventListener('hide.bs.modal', function(event) {
+                if (!document.getElementById('passwordInput').value) {
+                    location.reload();
+                }
+            });
+        });
+        
+    </script>
+    <!-- Enlace al archivo JavaScript de Bootstrap -->
+    <script src="https://servicoldingenieria.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://servicoldingenieria.com/verificarSesion.js"></script>
+</body>
+</html>
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4

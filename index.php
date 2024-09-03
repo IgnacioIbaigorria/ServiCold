@@ -46,7 +46,13 @@ if (isset($_SESSION['usuario_id'])) {
     <script src="https://servicoldingenieria.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script de redireccionamiento -->
     <script>
+<<<<<<< HEAD
         if (window.location.href === "https://servicoldingenieria.com/") {
+=======
+        // Verificar si la URL actual es igual a "https://servicoldingenieria.com/"
+        if (window.location.href === "https://servicoldingenieria.com/") {
+            // Redireccionar a la página de inicio de sesión
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             window.location.href = "https://servicoldingenieria.com/home.php";
         }
     </script>
@@ -57,7 +63,11 @@ if (isset($_SESSION['usuario_id'])) {
             margin: 0;
             padding: 0;
             background: linear-gradient(to right, #172742, #202733);
+<<<<<<< HEAD
             font-size: 16px;
+=======
+            font-size: 16px; /* Asegúrate de tener un tamaño base razonable */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
         }
                 
 
@@ -87,21 +97,33 @@ if (isset($_SESSION['usuario_id'])) {
         }
         
         h1 {
+<<<<<<< HEAD
             font-size: 2.5rem; 
+=======
+            font-size: 2.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             font-weight: 600;
             color: #74b5f9;
 
         }
         
         h2, h3, h4, h5, h6 {
+<<<<<<< HEAD
             font-size: 1.5rem; 
+=======
+            font-size: 1.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             font-weight: 500;
             color: #74b5f9;
 
         }
         
         .logo {
+<<<<<<< HEAD
             margin-left: 100px;
+=======
+            margin-left: 100px; /* Ajustar el margen */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             height: 40px;
             margin-top: 10px;
             border: none;
@@ -149,11 +171,19 @@ if (isset($_SESSION['usuario_id'])) {
             align-items: center;
             background-color: #202733;
             padding: 5px 10px;
+<<<<<<< HEAD
             height: 60px; 
         }
         
         header img {
             height: 30px;
+=======
+            height: 60px; /* Ajustar la altura */
+        }
+        
+        header img {
+            height: 30px; /* Reducir el tamaño de la imagen */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             border: none;
         }
         
@@ -200,7 +230,11 @@ if (isset($_SESSION['usuario_id'])) {
             }
 
             .logo {
+<<<<<<< HEAD
             margin-left: 0; 
+=======
+            margin-left: 0; /* Ajustar el margen */
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
             height: 30px;
             margin-top: 5px;
             margin-right: 5px;
@@ -296,7 +330,11 @@ if (isset($_SESSION['usuario_id'])) {
                         event.preventDefault();
                         var password = document.getElementById('password').value;
 
+<<<<<<< HEAD
                         fetch('https://servicoldingenieria.com/back-end/validar_admin.php', {
+=======
+                        fetch('https://servicoldingenieria.com/validar_admin.php', {
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "require": {
         "firebase/php-jwt": "^6.3", 
@@ -10,3 +11,17 @@
         }
     }
 }
+=======
+{
+    "require": {
+        "firebase/php-jwt": "^6.3", 
+        "ext-pdo": "*",
+        "phpmailer/phpmailer": "^6.9" 
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/" 
+        }
+    }
+}
+>>>>>>> c6df4590b758e67527316ee00b83bc1b861455b4
