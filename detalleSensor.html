@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Sensor</title>
+    <script src="https://servicoldingenieria.com/getSensorName.js"></script>
+    <link rel="icon" href="https://servicoldingenieria.com/src/favicon.png" type="image/x-icon">
+    <!-- Enlace a Bootstrap 5 -->
+    <link rel="stylesheet" href="https://servicoldingenieria.com/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Enlace a tu archivo de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="https://servicoldingenieria.com/css/styles.css">
+    <!-- Enlace a Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Agregar jQuery para simplificar la manipulación del DOM -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Enlace a JavaScript de Bootstrap 5 -->
+    <script src="https://servicoldingenieria.com/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .form-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-inline label,
+        .form-inline p,
+        .form-inline input,
+        .form-inline button {
+            margin: 0;
+        }
+        .btn{
+            font-size: 16px;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #0a0a4d, #050e2d);
+            font-size: 16px; /* Asegúrate de tener un tamaño base razonable */
+        }
+                
+
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #bcd3de;
+            margin: 0;
+            padding-bottom: 50px;
+            padding-top: 0;
+            background: linear-gradient(to right, #0a0a4d, #050e2d);
+        }
+        
+        header, footer {
+            color: #bcd3de;
+            background: linear-gradient(to right, #0a0a4d, #050e2d);
+        }
+        
+        p {
+            font-size: 1.4rem;
+            color: #bcd3de;
+        }
+        
+        h1 {
+            font-size: 2.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 600;
+            color: #74b5f9;
+
+        }
+        
+        h2, h3, h4, h5, h6 {
+            font-size: 1.5rem; /* Ajustar tamaño para pantallas más pequeñas */
+            font-weight: 500;
+            color: #74b5f9;
+
+        }
+        
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .alert-error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        #closeMessage {
+        color: #aaa;
+        font-size: 25px;
+        }
+        
+        #closeMessage:hover {
+            color: #000;
+        }
+
+        .alerta{
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        
+        .logo {
+            margin-left: 100px; /* Ajustar el margen */
+            height: 40px;
+            margin-top: 10px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: #2b78c5;
+            border-color: #2b78c5;
+            color: #e3f2fd;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        header {
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #202733;
+            padding: 5px 10px;
+            height: 60px; /* Ajustar la altura */
+        }
+        
+        header img {
+            height: 30px; /* Reducir el tamaño de la imagen */
+            border: none;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-buttons a {
+            color: #bcd3de;
+            text-decoration: none;
+            padding: 3px 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-buttons a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        .nav-buttons .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        #resultTable {
+            padding-bottom: 20px;
+            justify-content:center;
+            align-items:center;
+            width: 100%;
+        }
+        
+        /* Media queries para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .col-md-8, .col-md-4, .col-md-9, .col-md-3, .col-md-6 {
+                width: 100%;
+            }
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+            header{
+            width: 100%;
+            height: 30px;
+            }
+            
+            #updateUmbralForm {
+                display: flex;
+                flex-direction: column;
+                align-items:center;
+            }
+        
+            .row {
+                flex-direction: column; /* Coloca los elementos en columna en móviles */
+                align-items: center; /* Centra los elementos en el eje horizontal */
+            }
+        
+            .col-md-2 {
+                width: 80%; /* Ajusta el ancho para que ocupe más espacio en móviles */
+                margin-bottom: 10px; /* Espacio entre los campos */
+            }
+        
+            label {
+                text-align: center; /* Centra el texto de las etiquetas */
+                display: block; /* Asegura que la etiqueta ocupe todo el ancho */
+                margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+            }
+        
+            .fecha-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            .form-control, .form-select {
+                width: 100%; /* Asegura que el input y select ocupen todo el ancho del contenedor */
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+        
+            .form-group input {
+                margin-bottom: 10px; /* Espacio entre inputs */
+            }
+            
+            .btn {
+                padding-right: 10px;
+                padding-left: 10px;
+                width: 100%;
+            }
+            
+            header img {
+            margin-left: 5px;
+            border: none;
+            }
+
+            .logo {
+            margin-left: 0; /* Ajustar el margen */
+            height: 30px;
+            margin-top: 5px;
+            margin-right: 5px;
+            border: none;
+            }
+                
+            .nav-buttons {
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                height: 10px;
+                width: 5px;
+                margin-top: 5px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section {
+                padding: 30px 10px;
+            }
+            
+            header{
+            width: 100%;
+            height: auto;
+            }
+            
+            p {
+                font-size: 1rem;
+                color: #bcd3de;
+            }
+
+        
+            h1 {
+                font-size: 2rem;
+            }
+        
+            h2, h3, h4, h5, h6 {
+                font-size: 1.25rem;
+            }
+        
+            .btn-primary {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+    <body>
+        <header class="p-4">
+            <img src="imagenes/logo-fotor-bg-remover-2024071624910.png" alt="ServiCold SAS" class="img-fluid logo">
+            <div class="nav-buttons">
+                <a href="home.html">HOME</a>
+                <a href="index.php">GESTIÓN</a>
+                <a href="https://servicoldingenieria.com/back-end/logout.php">SALIR</a>
+            </div>
+        </header>
+    <!-- Sección principal -->
+    <div class="container principal">
+        <h1 id="sensor-title" class="d-flex justify-content-center mt-4">Cargando nombre del sensor...</h1>
+        <div id="sensor-data">
+            <!-- Aquí se mostrará la información adicional del sensor -->
+        </div>
+        
+        <div class="text-center mb-4">
+            <h2 class="alerta">Rango de alerta</h2>
+        </div>
+
+        <div class="row justify-content-center align-items-center mb-4">
+            <div class="col-auto">
+                <p>Umbral mínimo: <span id="umbralMin">Cargando...</span></p>
+            </div>
+            <!-- Mostrar Umbral Máximo solo si está disponible -->
+            <div class="col-auto" id="umbralMaxContainer">
+                <p>Umbral máximo: <span id="umbralMax">Cargando...</span></p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mb-4">
+            <div class="col-auto d-flex align-items-center">
+                <form id="updateUmbralForm" method="POST" class="d-flex">
+                    <input type="number" id="newUmbral" name="nuevoUmbral" step="0.01" placeholder="Umbral mínimo" class="form-control mx-2">
+                    <input type="number" id="newUmbralMax" name="nuevoUmbralMax" step="0.01" placeholder="Umbral máximo" class="form-control mx-2" style="display: none;">
+                    <input type="password" id="clave_sensor" name="clave_sensor" placeholder="Clave de sensor" class="form-control mx-2">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="updateMessage" class="alert" style="display:none;">
+            <span id="updateMessageText"></span>
+            <button id="closeMessage" style="float: right; background: none; border: none; cursor: pointer;">&times;</button>
+        </div>
+
+        <!-- Filtros para la fecha y cantidad de lecturas -->
+        <div class="row justify-content-center align-items-center text-center mb-4">
+            <div class="col-md-2 fecha-form">
+                <label for="selectedDate">Selecciona la fecha:</label>
+                <input type="date" id="selectedDate" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <label for="dataLimit">Cantidad de lecturas:</label>
+                <select id="dataLimit" name="dataLimit" onchange="handleDataLimitChange()" class="form-select">
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="all">Todos</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="col-md-12" style="display: flex; justify-content: center; margin-top: 25px; width: 100%">
+            <canvas id="sensorChart" class="grafico" style="width: 100%; max-width: 100%; height: 550px"></canvas>
+        </div>
+
+
+        <!-- Tabla para los resultados -->
+        <div class="d-flex justify-content-center mt-4 col-md-12" style="width: 100%;">
+            <table id="resultTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Temperatura (°C)</th>
+                        <th>Fecha y Hora</th>
+                    </tr>
+                </thead>
+                <tbody id="resultBody">
+                    <!-- Se agregan las filas dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let dataLimit = 25;
+        let selectedDate = new Date().toLocaleDateString('en-CA'); // 'en-CA' es formato YYYY-MM-DD
+        let sensorChart = null; // Variable para almacenar el gráfico
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sensorName = urlParams.get('sensorName');
+            
+            if (!sensorName) {
+                document.body.innerHTML = '<p>Error: No se especificó el sensor.</p>';
+                return;
+            }
+        
+            // Asignar la fecha actual al campo de fecha por defecto
+            document.getElementById('selectedDate').value = selectedDate;
+        
+            loadAllData(sensorName, selectedDate, dataLimit);
+        
+            // Formulario para actualizar los umbrales
+            document.getElementById('updateUmbralForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                updateUmbrales(sensorName);
+            });
+        
+            // Cambia el evento para el selector de fecha
+            document.getElementById('dataLimit').addEventListener('change', function () {
+                const dataLimitSelect = this.value;
+                dataLimit = dataLimitSelect === 'all' ? null : parseInt(dataLimitSelect);
+                loadAllData(sensorName, selectedDate, dataLimit); // Usar selectedDate aquí
+            });
+        
+            document.getElementById('selectedDate').addEventListener('change', function () {
+                selectedDate = this.value; // Actualiza la fecha seleccionada
+                loadAllData(sensorName, selectedDate, dataLimit); // Cargar datos de la nueva fecha
+            });
+        });
+        
+        function updateUmbrales(sensorName) {
+            const nuevoUmbral = document.getElementById('newUmbral').value;
+            const nuevoUmbralMax = document.getElementById('newUmbralMax').value;
+            const clave_sensor = document.getElementById('clave_sensor').value;
+        
+            const nuevo_umbral_max = nuevoUmbralMax.trim() === '' ? null : nuevoUmbralMax;
+        
+            fetch('https://servicoldingenieria.com/actualizarUmbral.php', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    sensor_name: sensorName,
+                    nuevo_umbral: nuevoUmbral,
+                    nuevo_umbral_max: nuevo_umbral_max === null ? '' : nuevo_umbral_max,
+                    clave_sensor: clave_sensor
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const updateMessage = document.getElementById('updateMessage');
+                const updateMessageText = document.getElementById('updateMessageText');
+                updateMessage.style.display = 'block';
+        
+                if (data.error) {
+                    updateMessageText.textContent = `Error: ${data.error}`;
+                    updateMessage.className = 'alert alert-error';
+                } else {
+                    updateMessageText.textContent = data.mensaje;
+                    updateMessage.className = 'alert alert-success';
+                    loadAllData(sensorName, selectedDate, dataLimit);
+                }
+        
+                // Agregar evento al botón de cierre
+                document.getElementById('closeMessage').onclick = function() {
+                    updateMessage.style.display = 'none';
+                };
+            })
+            .catch(error => {
+                const updateMessage = document.getElementById('updateMessage');
+                const updateMessageText = document.getElementById('updateMessageText');
+                updateMessage.style.display = 'block';
+                updateMessageText.textContent = `Error al actualizar los umbrales: ${error}`;
+                updateMessage.className = 'alert alert-error';
+        
+                // Agregar evento al botón de cierre
+                document.getElementById('closeMessage').onclick = function() {
+                    updateMessage.style.display = 'none';
+                };
+            });
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const options = { 
+                hour: 'numeric',
+                minute: 'numeric'
+            };
+            return date.toLocaleTimeString('es-ES', options);
+        }
+
+        function loadAllData(sensorName, selectedDate, dataLimit) {
+            let url = `https://servicoldingenieria.com/back-end/getSensorDetails.php?sensorName=${sensorName}&data_limit=${dataLimit}`;
+            if (selectedDate) {
+                url += `&selected_date=${selectedDate}`;
+            }
+        
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultBody = document.getElementById('resultBody');
+                    const resultTableHeader = document.querySelector('#resultTable thead th:first-child');
+                    resultBody.innerHTML = ''; // Limpiar la tabla
+        
+                    if (data.error) {
+                        document.body.innerHTML = `<p>Error: ${data.error}</p>`;
+                        return;
+                    }
+        
+                    // Comprobamos si data.data es un array
+                    if (!Array.isArray(data.data)) {
+                        document.body.innerHTML = `<p>Error: los datos del sensor no están disponibles o tienen un formato incorrecto.</p>`;
+                        return;
+                    }
+        
+                    const tipoSensor = data.tipoSensor; // Obtener el tipo de sensor (temperatura o combustible)
+                    let labelTexto, unidadMedida;
+        
+                    // Ajustar las etiquetas según el tipo de sensor
+                    if (tipoSensor === 'temperatura') {
+                        labelTexto = 'Temperatura (°C)';
+                        unidadMedida = '°C';
+                        document.getElementById('umbralMax').parentElement.style.display = 'block'; // Mostrar Umbral Máximo
+                        document.getElementById('newUmbralMax').style.display = 'block'; // Mostrar campo para actualizar Umbral Máximo
+                    } else if (tipoSensor === 'combustible') {
+                        labelTexto = 'Nivel de combustible (%)';
+                        unidadMedida = '%';
+                        document.getElementById('umbralMax').parentElement.style.display = 'none'; // Ocultar Umbral Máximo
+                        document.getElementById('newUmbralMax').style.display = 'none'; // Ocultar campo para actualizar Umbral Máximo
+                    }
+        
+                    // Actualiza la etiqueta del encabezado de la tabla
+                    resultTableHeader.textContent = labelTexto;
+        
+                    document.getElementById('sensor-title').textContent = sensorName;
+                    document.getElementById('umbralMin').textContent = data.umbralMin + unidadMedida;
+                    document.getElementById('umbralMax').textContent = data.umbralMax + unidadMedida;
+        
+                    let temperatureData = [];
+                    let labels = [];
+        
+                    // Verifica si hay datos
+                    if (Array.isArray(data.data) && data.data.length > 0) {
+                        data.data.forEach(item => {
+                            console.log(item); // Para ver qué contiene item
+                            const valorSensor = tipoSensor === 'temperatura' ? item.Temperatura : item.nivel_combustible;
+        
+                            temperatureData.push(valorSensor);
+                            labels.push(formatDate(item.fecha_actual));
+        
+                            const row = document.createElement('tr');
+                            row.innerHTML = `<td>${valorSensor}${unidadMedida}</td><td>${new Date(item.fecha_actual).toLocaleString('es-ES')}</td>`;
+                            resultBody.appendChild(row);
+                        });
+        
+                        // Limita las listas de datos según el dataLimit
+                        if (dataLimit) {
+                            labels = (labels.slice(-dataLimit)).reverse();
+                            temperatureData = (temperatureData.slice(-dataLimit)).reverse();
+                        } else {
+                            labels = labels.reverse();
+                            temperatureData = temperatureData.reverse();
+                        }
+                    } else {
+                        // Si no hay resultados, muestra un mensaje
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="2">No se encontraron resultados.</td>';
+                        resultBody.appendChild(row);
+        
+                        // Etiquetas y datos predeterminados para el gráfico
+                        labels = ['No hay datos']; // Un valor de etiqueta predeterminado
+                        temperatureData = [null]; // Valor nulo para que el gráfico no muestre nada
+                    }
+        
+                    // Inicializar el gráfico
+                    initializeChart(labels, temperatureData, labelTexto);
+                })
+                .catch(error => {
+                    document.body.innerHTML = `<p>Error al cargar los detalles del sensor: ${error}</p>`;
+                    const resultBody = document.getElementById('resultBody');
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="2">Error al obtener los datos.</td>';
+                    resultBody.appendChild(row);
+                });
+        }
+        
+        function initializeChart(labels, temperatureData, labelTexto) {
+            // Destruir el gráfico existente si es necesario
+            if (sensorChart) {
+                sensorChart.destroy();
+            }
+        
+            const ctx = document.getElementById('sensorChart').getContext('2d');
+            sensorChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: labelTexto,  // Usar la etiqueta dinámica
+                        data: temperatureData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'category',
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Fecha y Hora'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: labelTexto
+                            },
+                            min: Math.min(...temperatureData) - 2,
+                            max: Math.max(...temperatureData) + 2
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+
+        function handleDataLimitChange() {
+            const dataLimitSelect = document.getElementById('dataLimit').value;
+            dataLimit = dataLimitSelect === 'all' ? null : parseInt(dataLimitSelect);
+            loadAllData(sensorName, selectedDate, dataLimit);
+        }
+        
+        document.getElementById('dataLimit').addEventListener('change', handleDataLimitChange);
+        document.getElementById('selectedDate').addEventListener('change', function () {
+            selectedDate = document.getElementById('selectedDate').value;
+            loadAllData(sensorName, selectedDate, dataLimit);
+        });
+    </script>
+</body>
+</html>
